@@ -415,7 +415,8 @@ def _request(method, url, params={}, data={}, headers={}):
     else:
         port = 80
 
-    url = urlparse.urlunsplit((scheme, netloc_noauth, path, query, fragment))
+    # don't include scheme or netloc because we want a relative url path
+    url = urlparse.urlunsplit(('', '', path, query, fragment))
     if method in ['GET', 'DELETE']:
         params = urllib.urlencode(params, True)
         if params:
